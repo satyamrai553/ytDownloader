@@ -2,15 +2,6 @@ import yt_dlp
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
-
-ydl_opts = {
-    'ffmpeg_location': r"C:\Program Files\ffmpeg-2025-03-24-git-cbbc927a67-essentials_build\bin",
-    'format': 'bestvideo+bestaudio/best',
-}
-
-with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-    ydl.download(["https://youtu.be/Gek-_NIToDo"])
-
 def download_video():
     url = url_entry.get().strip()
     folder = folder_path.get()
@@ -24,8 +15,10 @@ def download_video():
         return
 
     ydl_opts = {
-        'outtmpl': f"{folder}/%(title)s.%(ext)s",  # Save file in selected folder
-        'format': 'bestvideo+bestaudio/best',  # Best quality video and audio
+        'outtmpl': f"{folder}/%(title)s.%(ext)s",
+        'format': 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
+        'ffmpeg_location': r"C:\Program Files\ffmpeg-2025-03-24-git-cbbc927a67-essentials_build\bin",
+        'merge_output_format': 'mp4',  # Ensure output is mp4
     }
 
     try:
